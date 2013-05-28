@@ -45,5 +45,5 @@ SPEC_END
 
 ##### License
 
-This matcher is available under the MIT license, but be aware that the reuired
+This matcher is available under the MIT license, but be aware that the required
 libraries have GPL like licenses.
