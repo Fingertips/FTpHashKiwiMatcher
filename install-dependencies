@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if ! which brew > /dev/null; then
+  echo "Requires Homebrew to install dependencies." 1>&2
+  exit 1
+fi
+
+if ! brew list jpeg > /dev/null 2>&1; then
+  brew install jpeg
+fi
+
+# TODO I don't need PNG atm.
+#if ! brew list libpng > /dev/null 2>&1; then
+  #brew install libpng
+#fi
+
+if ! brew list cimg > /dev/null 2>&1; then
+  brew install cimg
+fi
+
+if ! brew list phash > /dev/null 2>&1; then
+  brew install phash --enable-static --disable-video-hash --disable-audio-hash
+fi
