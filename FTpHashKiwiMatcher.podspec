@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "http://github.com/Fingertips/FTpHashKiwiMatcher"
   s.license      = 'MIT' # cimg and phash have GPL type of licenses...
   s.author       = { "Eloy Durán" => "eloy.de.enige@gmail.com" }
-  s.source       = { :git => "http://github.com/Fingertips/FTpHashKiwiMatcher.git", :tag => "0.0.1" }
+  s.source       = { :git => "http://github.com/Fingertips/FTpHashKiwiMatcher.git" }
   s.platform     = :osx
 
   s.source_files = 'FTpHashKiwiMatcher.{h,mm}'

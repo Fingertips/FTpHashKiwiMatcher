@@ -1,4 +1,10 @@
 * Make CImg use CoreGraphics to convert image data, removing the need for libjpeg, libpng, etc.
+* Instead of having to specify paths, make it accept NSImage instances.
 * Create standalone build by building static libs of the dependencies.
 * Create podspec that does not expect dependencies to be installed through homebrew.
+* Release first stable version.
+
+Later:
+
 * Make compatible with iOS.
+* Support audio and video hashing.
