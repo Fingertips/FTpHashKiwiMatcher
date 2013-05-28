@@ -1,0 +1,4 @@
+* Make CImg use CoreGraphics to convert image data, removing the need for libjpeg, libpng, etc.
+* Create standalone build by building static libs of the dependencies.
+* Create podspec that does not expect dependencies to be installed through homebrew.
+* Make compatible with iOS.
