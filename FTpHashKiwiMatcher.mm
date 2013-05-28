@@ -1,4 +1,4 @@
-#import "KWChangeMatcher.h"
+#import "FTpHashKiwiMatcher.h"
 #import <pHash.h>
 
 @implementation FTpHashKiwiMatcherPathWrapper
@@ -18,7 +18,7 @@
 
 - (NSString *)description;
 {
-  return path;
+  return self.path;
 }
 
 @end
@@ -34,7 +34,7 @@
 
 + (NSArray *)matcherStrings;
 {
-  return @[@"equalImage:withThreshold:"];
+  return @[@"equalImage:", @"equalImage:withThreshold:"];
 }
 
 - (NSString *)failureMessageForShould;
@@ -54,8 +54,8 @@
 
 - (BOOL)evaluate;
 {
-  FTpHashKiwiMatcherPathWrapper *subject = (FTpHashKiwiMatcherPathWrapper *)self.subject;
-  if (![subject isKindOfClass:[FTpHashKiwiMatcherPathWrapper class]]) {
+  FTpHashKiwiMatcherPathWrapper *actual = (FTpHashKiwiMatcherPathWrapper *)self.subject;
+  if (![actual isKindOfClass:[FTpHashKiwiMatcherPathWrapper class]]) {
     [NSException raise:@"KWMatcherException" format:@"subject should be of type FTpHashKiwiMatcherPathWrapper"];
   }
 
@@ -68,9 +68,9 @@
   double sigma = 1.0, gamma = 1.0;
   int N = 180;
 
-  Digest subjectDigest, expectedDigest;
+  Digest actualDigest, expectedDigest;
 
-  if (ph_image_digest(subject.cString, sigma, gamma, subjectDigest, N) == -1) {
+  if (ph_image_digest(actual.cString, sigma, gamma, actualDigest, N) == -1) {
     [NSException raise:@"KWMatcherException" format:@"unable to hash the subject image"];
   }
   if (ph_image_digest(expected.cString, sigma, gamma, expectedDigest, N) == -1) {
@@ -78,20 +78,26 @@
   }
 
   double ccp = 0;
-  int result = ph_crosscorr(originalDigest, otherDigest, ccp, self.ccpMinimum);
+  int result = ph_crosscorr(actualDigest, expectedDigest, ccp, self.ccpMinimum);
   switch (result) {
     case 0:
-      return YES;
-    case 1:
       self.ccp = ccp;
+      return NO;
+    case 1:
+      return YES;
     case -1:
       // Although the docs state this is an error, it doesn't ever return error codes atm.
       [NSException raise:@"KWMatcherException" format:@"an error occurred while comparing images"];
     default:
-      NSAssert(NO, @"Unexpected pHash result: %d", result);
+      NSAssert1(NO, @"Unexpected pHash result: %d", result);
   }
 
   return NO;
+}
+
+- (void)equalImage:(FTpHashKiwiMatcherPathWrapper *)imagePathWrapper;
+{
+  [self equalImage:imagePathWrapper withThreshold:0.999999];
 }
 
 - (void)equalImage:(FTpHashKiwiMatcherPathWrapper *)imagePathWrapper

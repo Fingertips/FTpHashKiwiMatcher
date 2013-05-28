@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "http://github.com/Fingertips/FTpHashKiwiMatcher.git", :tag => "0.0.1" }
   s.platform     = :osx
 
-  s.source_files = 'FTpHashKiwiMatcher.{h,m}'
+  s.source_files = 'FTpHashKiwiMatcher.{h,mm}'
   s.preserve_paths = "install-dependencies"
 
   s.requires_arc = true
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => File.join(homebrew_prefix, 'include'),
     'LIBRARY_SEARCH_PATHS' => File.join(homebrew_prefix, 'lib')
   }
-  s.libraries = 'jpeg', 'pHash'
+  s.libraries = 'stdc++', 'jpeg', 'pHash'
 
   s.dependency 'Kiwi', '~> 2.0'
 end
