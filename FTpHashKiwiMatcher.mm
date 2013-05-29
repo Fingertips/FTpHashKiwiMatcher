@@ -97,7 +97,7 @@
 
 - (void)equalImage:(FTpHashKiwiMatcherPathWrapper *)imagePathWrapper;
 {
-  [self equalImage:imagePathWrapper withThreshold:0.999999];
+  [self equalImage:imagePathWrapper withThreshold:0.99999];
 }
 
 - (void)equalImage:(FTpHashKiwiMatcherPathWrapper *)imagePathWrapper
